@@ -9,57 +9,64 @@
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;600;700&display=swap" rel="stylesheet">
 
   <style>
-    :root {
+    :root{
       --btn: #143054;    /* Light Navy */
       --hover: #055CA8;  /* Light Blue */
       --text: #ffffff;
-      --btn-w: 180px;    /* button width */
-      --btn-h: 84px;     /* fixed row & button height */
-      --gap: 10px;
+
+      /* Desktop defaults (fits in a 180px iframe) */
+      --btn-w: 200px;
+      --btn-h: 72px;
+      --gap: 12px;
+      --pad-v: 12px;      /* vertical padding for the whole block */
+      --font: 17px;
+      --radius: 10px;
     }
 
-    * { box-sizing: border-box; }
-    html, body {
-      margin: 0; padding: 0;
-      font-family: "Noto Sans", Arial, Helvetica, sans-serif;
-      background: transparent;
+    *{ box-sizing:border-box; }
+    html,body{
+      margin:0; padding:0;
+      font-family:"Noto Sans", Arial, Helvetica, sans-serif;
+      background:transparent;
     }
 
-    /* Single-row strip that never gets taller; scrolls sideways on small screens */
-    .button-strip {
-      display: flex;
-      flex-wrap: nowrap;                 /* no wrapping => fixed height on all devices */
+    /* Fill the iframe height and center content vertically & horizontally */
+    .frame{
+      min-height:100vh;                /* equals the iframe's pixel height */
+      display:grid;
+      place-items:center;              /* vertical + horizontal centering of the row(s) */
+      padding: var(--pad-v) 12px;
+    }
+
+    .button-container{
+      display:flex;
+      flex-wrap:wrap;                  /* wrap on smaller widths */
+      justify-content:center;          /* center the row(s) */
       gap: var(--gap);
-      padding: 10px 12px;
-      margin: 0 auto;
       max-width: 1000px;
-      overflow-x: auto;                  /* horizontal scroll when needed */
-      -webkit-overflow-scrolling: touch; /* smooth on iOS */
-      scrollbar-width: thin;
-      height: calc(var(--btn-h) + 20px); /* content height + vertical padding */
-      align-items: center;               /* vertically center buttons within strip */
+      margin: 0 auto;
     }
 
-    .video-button {
+    .video-button{
       width: var(--btn-w);
       height: var(--btn-h);
-      display: inline-flex;
-      align-items: center;               /* vertical center */
-      justify-content: center;           /* horizontal center */
-      text-align: center;
+      display:flex;
+      align-items:center;              /* vertical centering */
+      justify-content:center;          /* horizontal centering */
+      text-align:center;
       padding: 0 14px;
-      border-radius: 8px;
+      border-radius: var(--radius);
       background-color: var(--btn);
       color: var(--text);
-      text-decoration: none;
-      font-size: 16px;
-      font-weight: 600;
-      line-height: 1.25;                 /* allows 1–2 lines of text inside fixed height */
-      white-space: normal;               /* allow wrapping within the button */
-      word-break: break-word;            /* break long words if needed */
+      text-decoration:none;
+      font-weight:600;
+      font-size: var(--font);
+      line-height:1.25;                /* allow 1–2 lines */
+      word-break: break-word;
+      white-space: normal;
       transition: background-color .2s ease, transform .05s ease;
-      outline: 0;
-      flex: 0 0 auto;                    /* don’t shrink */
+      outline:0;
+      flex: 0 0 auto;                  /* keep fixed width */
     }
 
     .video-button:hover,
@@ -67,15 +74,37 @@
     .video-button:active { transform: translateY(1px); }
 
     .video-button:focus-visible {
-      box-shadow: 0 0 0 3px rgba(5, 92, 168, .35);
+      box-shadow: 0 0 0 3px rgba(5,92,168,.35);
+    }
+
+    /* Tablet: 2 rows max likely → reduce size so total height still fits 180px */
+    @media (max-width: 900px){
+      :root{
+        --btn-w: 180px;
+        --btn-h: 60px;
+        --gap: 10px;
+        --font: 16px;
+      }
+    }
+
+    /* Phone: 3 rows → shrink again so nothing gets cut off in the same iframe height */
+    @media (max-width: 560px){
+      :root{
+        --btn-w: 160px;
+        --btn-h: 48px;   /* 3x48 + gaps + padding = fits nicely in 180px */
+        --gap: 8px;
+        --font: 15px;
+      }
     }
   </style>
 </head>
 <body>
-  <nav class="button-strip" aria-label="Training Videos">
-    <a class="video-button" target="_blank" rel="noopener" href="https://example.com/foundation-forum">Foundation Forum Opening Address</a>
-    <a class="video-button" target="_blank" rel="noopener" href="https://example.com/leadership-philosophy">Leadership Philosophy</a>
-    <a class="video-button" target="_blank" rel="noopener" href="https://example.com/commissioners-call">Commissioner’s Call To Action</a>
-  </nav>
+  <div class="frame">
+    <nav class="button-container" aria-label="Training Videos">
+      <a class="video-button" target="_blank" rel="noopener" href="https://example.com/foundation-forum">Foundation Forum Opening Address</a>
+      <a class="video-button" target="_blank" rel="noopener" href="https://example.com/leadership-philosophy">Leadership Philosophy</a>
+      <a class="video-button" target="_blank" rel="noopener" href="https://example.com/commissioners-call">Commissioner’s Call To Action</a>
+    </nav>
+  </div>
 </body>
 </html>
