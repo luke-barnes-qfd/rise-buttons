@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Video Buttons</title>
+<style>
+    :root {
+      --btn: #143054;   /* Light Navy */
+      --hover: #055CA8; /* Light Blue */
+      --text: #ffffff;
+    }
+    * { box-sizing: border-box; }
+    html, body {
+      margin: 0;
+      padding: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background: transparent;
+    }
+    .button-container {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr); /* 1-1-1 on desktop */
+      gap: 16px;
+      padding: 16px;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+    .video-button {
+      display: block;
+      text-align: center;
+      text-decoration: none;
+      background-color: var(--btn);
+      color: var(--text);
+      padding: 14px 18px;
+      border-radius: 8px;
+      font-size: 16px;
+      font-weight: 600;
+      line-height: 1.2;
+      transition: background-color 0.2s ease, transform 0.05s ease;
+      outline: none;
+    }
+    .video-button:hover,
+    .video-button:focus-visible { background-color: var(--hover); }
+    .video-button:active { transform: translateY(1px); }
+ 
+    /* Responsive: 2 columns on tablets, 1 on phones */
+    @media (max-width: 900px) { .button-container { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 560px) { .button-container { grid-template-columns: 1fr; } }
+ 
+    .video-button:focus-visible {
+      box-shadow: 0 0 0 3px rgba(5, 92, 168, 0.35);
+    }
+</style>
+</head>
+<body>
+<nav class="button-container" aria-label="Training Videos">
+<a class="video-button" target="_blank" rel="noopener" href="https://example.com/foundation-forum">Foundation Forum Opening Address</a>
+<a class="video-button" target="_blank" rel="noopener" href="https://example.com/leadership-philosophy">Leadership Philosophy</a>
+<a class="video-button" target="_blank" rel="noopener" href="https://example.com/commissioners-call">Commissioner’s Call To Action</a>
+</nav>
+</body>
+</html>
