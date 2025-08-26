@@ -5,60 +5,70 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Video Buttons</title>
 <style>
-    :root {
-      --btn: #143054;   /* Light Navy */
-      --hover: #055CA8; /* Light Blue */
-      --text: #ffffff;
-    }
-    * { box-sizing: border-box; }
+    :root { --btn:#143054; --hover:#055CA8; --text:#ffffff; }
+    * { box-sizing:border-box; }
     html, body {
-      margin: 0;
-      padding: 0;
-      font-family: Arial, Helvetica, sans-serif;
-      background: transparent;
+      margin:0; padding:0;
+      font-family:Arial, Helvetica, sans-serif;
+      background:transparent;
     }
-    .button-container {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 12px;
-      padding: 12px;
-      max-width: 1000px;
-      margin: 0 auto;
-    }
-    .video-button {
-      display: flex;                 /* flex for centering */
-      align-items: center;           /* vertical center */
-      justify-content: center;       /* horizontal center */
-      min-height: 60px;              /* taller button */
-      text-align: center;
-      text-decoration: none;
-      background-color: var(--btn);
-      color: var(--text);
-      border-radius: 8px;
-      font-size: 17px;
-      font-weight: 600;
-      line-height: 1.2;
-      transition: background-color 0.2s ease, transform 0.05s ease;
-      outline: none;
-      padding: 0 16px;              /* side padding only */
-    }
-    .video-button:hover,
-    .video-button:focus-visible { background-color: var(--hover); }
-    .video-button:active { transform: translateY(1px); }
  
-    @media (max-width: 900px) { .button-container { grid-template-columns: repeat(2, 1fr); } }
-    @media (max-width: 560px) { .button-container { grid-template-columns: 1fr; } }
+    /* Single-row strip that can scroll horizontally on small screens */
+    .button-strip {
+      display:flex;
+      gap:12px;
+      padding:10px 12px;
+      max-width:1000px;
+      margin:0 auto;
+      overflow-x:auto;                 /* allow horizontal scroll on mobile */
+      -webkit-overflow-scrolling:touch;
+      scrollbar-width:thin;
+    }
+ 
+    /* Buttons: taller, centered text (both axes) */
+    .video-button {
+      display:inline-flex;
+      align-items:center;              /* vertical center */
+      justify-content:center;          /* horizontal center */
+      height:64px;                     /* taller button */
+      padding:0 20px;                  /* comfy side padding */
+      border-radius:8px;
+      background-color:var(--btn);
+      color:var(--text);
+      text-decoration:none;
+      font-size:17px;
+      font-weight:600;
+      line-height:1;
+      white-space:nowrap;              /* keep each button on one line */
+      transition:background-color .2s ease, transform .05s ease;
+      outline:0;
+      flex:0 0 auto;                   /* prevent flex from shrinking buttons */
+    }
+ 
+    .video-button:hover,
+    .video-button:focus-visible { background-color:var(--hover); }
+    .video-button:active { transform:translateY(1px); }
  
     .video-button:focus-visible {
-      box-shadow: 0 0 0 3px rgba(5, 92, 168, 0.35);
+      box-shadow:0 0 0 3px rgba(5,92,168,.35);
     }
 </style>
 </head>
 <body>
-<nav class="button-container" aria-label="Training Videos">
+<nav class="button-strip" aria-label="Training Videos">
 <a class="video-button" target="_blank" rel="noopener" href="https://example.com/foundation-forum">Foundation Forum Opening Address</a>
 <a class="video-button" target="_blank" rel="noopener" href="https://example.com/leadership-philosophy">Leadership Philosophy</a>
 <a class="video-button" target="_blank" rel="noopener" href="https://example.com/commissioners-call">Commissioner’s Call To Action</a>
 </nav>
+ 
+  <!-- (Optional) postMessage - harmless if parent ignores it -->
+<script>
+    function postHeight() {
+      const h = document.documentElement.scrollHeight;
+      try { parent.postMessage({ type: "IFRAME_CONTENT_HEIGHT", height: h }, "*"); } catch(e) {}
+    }
+    window.addEventListener("load", () => { postHeight(); setTimeout(postHeight,150); });
+    window.addEventListener("resize", postHeight);
+</script>
 </body>
 </html>
