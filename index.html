@@ -19,31 +19,33 @@
     }
     .button-container {
       display: grid;
-      grid-template-columns: repeat(3, 1fr); /* 1-1-1 on desktop */
-      gap: 16px;
-      padding: 16px;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      padding: 12px;
       max-width: 1000px;
       margin: 0 auto;
     }
     .video-button {
-      display: block;
+      display: flex;                 /* flex for centering */
+      align-items: center;           /* vertical center */
+      justify-content: center;       /* horizontal center */
+      min-height: 60px;              /* taller button */
       text-align: center;
       text-decoration: none;
       background-color: var(--btn);
       color: var(--text);
-      padding: 14px 18px;
       border-radius: 8px;
-      font-size: 16px;
+      font-size: 17px;
       font-weight: 600;
       line-height: 1.2;
       transition: background-color 0.2s ease, transform 0.05s ease;
       outline: none;
+      padding: 0 16px;              /* side padding only */
     }
     .video-button:hover,
     .video-button:focus-visible { background-color: var(--hover); }
     .video-button:active { transform: translateY(1px); }
  
-    /* Responsive: 2 columns on tablets, 1 on phones */
     @media (max-width: 900px) { .button-container { grid-template-columns: repeat(2, 1fr); } }
     @media (max-width: 560px) { .button-container { grid-template-columns: 1fr; } }
  
