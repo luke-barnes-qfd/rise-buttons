@@ -9,13 +9,9 @@
       --btn: #143054;    /* Light Navy */
       --hover: #055CA8;  /* Light Blue */
       --text: #ffffff;
-      --btn-height: 80px;   /* fixed button height */
+      --btn-height: 80px;
       --btn-font: 18px;
-      --btn-pad: 16px;
-      --gap: 12px;
-      --maxw: 1000px;
     }
-
     * { box-sizing: border-box; }
     html, body {
       margin: 0; padding: 0;
@@ -24,20 +20,19 @@
     }
 
     .button-container {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr); /* equal widths */
-      gap: var(--gap);
+      display: flex;
+      justify-content: center;
+      gap: 12px;
       padding: 12px;
-      max-width: var(--maxw);
-      margin: 0 auto;
+      flex-wrap: wrap; /* allows wrapping on smaller screens */
     }
 
     .video-button {
       display: flex;
-      align-items: center;     /* vertical centering */
-      justify-content: center; /* horizontal centering */
+      align-items: center;
+      justify-content: center;
       height: var(--btn-height);
-      padding: var(--btn-pad);
+      padding: 0 16px;
       border-radius: 8px;
       background-color: var(--btn);
       color: var(--text);
@@ -46,10 +41,13 @@
       font-weight: 600;
       text-align: center;
       line-height: 1.3;
-      word-wrap: break-word;   /* allow wrapping */
-      white-space: normal;     /* enable wrapping */
+      word-wrap: break-word;
+      white-space: normal;
       transition: background-color .2s ease, transform .05s ease;
       outline: 0;
+      flex: 0 1 220px;   /* <<< key: smaller width buttons */
+      min-width: 160px;
+      max-width: 220px;
     }
 
     .video-button:hover,
@@ -58,14 +56,6 @@
 
     .video-button:focus-visible {
       box-shadow: 0 0 0 3px rgba(5, 92, 168, .35);
-    }
-
-    /* Responsiveness: 2 columns on tablets, 1 column on phones */
-    @media (max-width: 900px) {
-      .button-container { grid-template-columns: repeat(2, 1fr); }
-    }
-    @media (max-width: 560px) {
-      .button-container { grid-template-columns: 1fr; }
     }
   </style>
 </head>
